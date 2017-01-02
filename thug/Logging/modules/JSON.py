@@ -30,6 +30,7 @@ except ImportError:
     from io import StringIO
 
 from .Mapper import Mapper
+from .ExploitGraph import ExploitGraph
 from .compatibility import thug_unicode
 
 log = logging.getLogger("Thug")
@@ -84,6 +85,7 @@ class JSON(object):
                         "locations"   : [],
                         "exploits"    : [],
                         "classifiers" : [],
+                        "graph"       : {},
                     }
 
     @property
@@ -120,6 +122,7 @@ class JSON(object):
             return
 
         self.data["url"] = self.fix(url)
+        self.graph = ExploitGraph(url)
 
     def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
         if not self.json_enabled:
@@ -158,6 +161,8 @@ class JSON(object):
                                          "destination"  : self.fix(destination),
                                          "method"       : method,
                                          "flags"        : flags})
+
+        self.graph.add_connection(source, destination, method)
 
     def log_location(self, url, data, flags = None):
         """
@@ -255,6 +260,8 @@ class JSON(object):
     def export(self, basedir):
         if not self.json_enabled:
             return
+
+        self.data["graph"] = self.graph.draw()
 
         output = StringIO()
         json.dump(self.data, output, sort_keys = False, indent = 4)
