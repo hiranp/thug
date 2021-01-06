@@ -20,3 +20,4 @@ pefile==2016.3.28
 yara-python==3.5.0
 elasticsearch==5.2.0
 peepdf==0.3.3
+pillow>=8.1.0 # not directly required, pinned by Snyk to avoid a vulnerability
