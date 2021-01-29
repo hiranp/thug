@@ -1,8 +1,8 @@
 beautifulsoup4==4.5.3
 html5lib==0.999999999
-lxml==3.6.0
+lxml==4.6.2
 cchardet==1.1.2
-requests==2.13.0
+requests==2.20
 PySocks==1.6.6
 cssutils==1.0.1
 zope.interface==4.3.3
@@ -20,3 +20,4 @@ pefile==2016.3.28
 yara-python==3.5.0
 elasticsearch==5.2.0
 peepdf==0.3.3
+pillow>=8.1.0 # not directly required, pinned by Snyk to avoid a vulnerability
